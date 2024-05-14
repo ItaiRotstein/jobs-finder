@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\ListingController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
 
 //All Listings
 Route::get('/', [ListingController::class, 'index']);
@@ -25,6 +24,9 @@ Route::delete('/listings/{listing}/', [ListingController::class, 'destroy']);
 
 //Listing by Id
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+//Show Register Create Form
+Route::get('/register', [UserController::class, 'create']);
 
 
 
