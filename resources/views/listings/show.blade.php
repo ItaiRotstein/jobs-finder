@@ -43,7 +43,7 @@
             </div>
         </x-card>
 
-        <x-card class="!mt-4 !p-2 !flex !justify-center !w-1/4 mx-auto">
+        {{-- <x-card class="!mt-4 !p-2 !flex !justify-center !w-1/4 mx-auto">
             <a href="/listings/{{ $listing->id }}/edit" class="w-full text-center">
                 <i class="fa-solid fa-pencil">
                     <span class="ms-1">Edit</span>
@@ -61,6 +61,6 @@
                     </i>
                 </button>
             </form>
-        </x-card>
+        </x-card> --}}
     </div>
 </x-layout>

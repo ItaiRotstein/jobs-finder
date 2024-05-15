@@ -14,7 +14,7 @@ class UserController extends Controller
         return view('users.register');
     }
 
-    //Store Created User
+    //Store User
     public function store(Request $request)
     {
         $formFields = $request->validate([
@@ -33,5 +33,49 @@ class UserController extends Controller
         auth()->login($user);
 
         return redirect('/')->with('message', 'User registered successfully');
+    }
+
+    //Show Login Form
+    public function login()
+    {
+        return view('users.login');
+    }
+
+    //Log In User
+    public function auth(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+
+        if(auth()->attempt($formFields)) {
+            $request->session()->regenerate();
+
+            return redirect('/')->with('message', 'You are logged in!');
+        }
+
+        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+
+        //Hash Password
+        $formFields['password'] = bcrypt($formFields['password']);
+
+        //Create User
+        $user = User::create($formFields);
+
+        //Login
+        auth()->login($user);
+
+        return redirect('/')->with('message', 'User registered successfully');
+    }
+
+    //Loggout User
+    public function logout(Request $request) {
+        auth()->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('message', 'You have been logged out!');
     }
 }
